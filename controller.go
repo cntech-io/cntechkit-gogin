@@ -13,7 +13,7 @@ func NewController(version string, path string) *Controller {
 	}
 }
 
-func (c *Controller) AttachResource(a *api) *Controller {
+func (c *Controller) AttachAPI(a *api) *Controller {
 	c.apis = append(c.apis, *a)
 	return c
 }
