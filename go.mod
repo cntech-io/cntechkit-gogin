@@ -3,7 +3,7 @@ module github.com/cntech-io/cntechkit-gogin
 go 1.20
 
 require (
-	github.com/cntech-io/cntechkit-go v1.0.6
+	github.com/cntech-io/cntechkit-go v1.0.7
 	github.com/gin-gonic/gin v1.9.1
 )
 
