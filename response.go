@@ -54,6 +54,10 @@ func ForbittenResponse(endUserMessage string, respType errorType) (int, response
 	return http.StatusForbidden, *Response(endUserMessage).Fail(respType)
 }
 
+func NotFoundResponse(endUserMessage string, respType errorType) (int, response) {
+	return http.StatusNotFound, *Response(endUserMessage).Fail(respType)
+}
+
 func BadRequestResponse(endUserMessage string, respType errorType) (int, response) {
 	return http.StatusBadRequest, *Response(endUserMessage).Fail(respType)
 }
