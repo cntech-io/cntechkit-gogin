@@ -1,6 +1,10 @@
 package cntechkitgogin
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 type errorType string
 
@@ -15,53 +19,60 @@ type response struct {
 	EndUserMessage string `json:"end_user_message"`
 	ErrorType      string `json:"error_type,omitempty"`
 	Data           any    `json:"data,omitempty"`
+	Error          string `json:"error,omitempty"`
+	Description    string `json:"description,omitempty"`
 }
 
-func Response(endUserMessage string) *response {
+func NewResponse(endUserMessage string) *response {
 	return &response{
 		EndUserMessage: endUserMessage,
 	}
 }
 
-func (r *response) Success() *response {
+func (r *response) Err(err string) *response {
+	r.Error = err
+	return r
+}
+
+func (r *response) success() *response {
 	r.Status = true
 	return r
 }
 
-func (r *response) Fail(respType errorType) *response {
+func (r *response) fail(errType errorType) *response {
 	r.Status = false
-	r.ErrorType = string(respType)
+	r.ErrorType = string(errType)
 	return r
 }
-func (r *response) WithData(data any) *response {
+func (r *response) successWithData(data any) *response {
 	r.Data = data
 	return r
 }
 
-func OKResponse(endUserMessage string) (int, response) {
-	return http.StatusOK, *Response(endUserMessage).Success()
+func (r *response) OK(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, r.success())
 }
 
-func DataResponse(endUserMessage string, data any) (int, response) {
-	return http.StatusOK, *Response(endUserMessage).Success().WithData(data)
+func (r *response) Created(ctx *gin.Context) {
+	ctx.JSON(http.StatusCreated, r.success())
 }
 
-func CreatedResponse(endUserMessage string) (int, response) {
-	return http.StatusCreated, *Response(endUserMessage).Success()
+func (r *response) BadRequest(ctx *gin.Context, errType errorType) {
+	ctx.JSON(http.StatusBadRequest, r.fail(errType))
 }
 
-func ForbittenResponse(endUserMessage string, respType errorType) (int, response) {
-	return http.StatusForbidden, *Response(endUserMessage).Fail(respType)
+func (r *response) Unauthorized(ctx *gin.Context, errType errorType) {
+	ctx.JSON(http.StatusUnauthorized, r.fail(errType))
 }
 
-func NotFoundResponse(endUserMessage string, respType errorType) (int, response) {
-	return http.StatusNotFound, *Response(endUserMessage).Fail(respType)
+func (r *response) Forbidden(ctx *gin.Context, errType errorType) {
+	ctx.JSON(http.StatusForbidden, r.fail(errType))
 }
 
-func BadRequestResponse(endUserMessage string, respType errorType) (int, response) {
-	return http.StatusBadRequest, *Response(endUserMessage).Fail(respType)
+func (r *response) NotFound(ctx *gin.Context, errType errorType) {
+	ctx.JSON(http.StatusNotFound, r.fail(errType))
 }
 
-func UnauthorizedResponse(endUserMessage string, respType errorType) (int, response) {
-	return http.StatusUnauthorized, *Response(endUserMessage).Fail(respType)
+func (r *response) WithData(ctx *gin.Context, data any) {
+	ctx.JSON(http.StatusOK, r.successWithData(data))
 }

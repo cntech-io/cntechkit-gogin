@@ -14,10 +14,9 @@ func BasicAuthMiddleware() gin.HandlerFunc {
 			cntechkitgo.NewLogger(&cntechkitgo.LoggerConfig{
 				AppName: "cntechkit-gogin",
 			}).Error(string(endusermessage.BasicAuthInvalidParams))
-			context.JSON(cntechkitgogin.BadRequestResponse(
-				string(endusermessage.BasicAuthInvalidParams),
-				cntechkitgogin.InvalidParams,
-			))
+			cntechkitgogin.
+				NewResponse(string(endusermessage.BasicAuthInvalidParams)).
+				BadRequest(context, cntechkitgogin.InvalidParams)
 			context.Abort()
 		}
 

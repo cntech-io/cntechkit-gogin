@@ -52,7 +52,7 @@ func (s *Server) AttachMiddleWare(middleware gin.HandlerFunc) *Server {
 func (s *Server) AttachHealth() *Server {
 	group := s.router.Group("/health")
 	group.GET("/", func(ctx *gin.Context) {
-		ctx.JSON(OKResponse("Healthy"))
+		NewResponse("Healthy").OK(ctx)
 	})
 	return s
 }
