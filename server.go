@@ -3,7 +3,8 @@ package cntechkitgogin
 import (
 	"fmt"
 
-	gokit "github.com/cntech-io/cntechkit-go"
+	cntechkitgo "github.com/cntech-io/cntechkit-go"
+	"github.com/cntech-io/cntechkit-gogin/responses"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,7 +13,7 @@ type Server struct {
 	router *gin.Engine
 }
 
-var env = gokit.NewServerEnv()
+var env = cntechkitgo.NewServerEnv()
 
 func NewServer(conf ServerConfig) *Server {
 	server := &Server{}
@@ -52,7 +53,7 @@ func (s *Server) AttachMiddleWare(middleware gin.HandlerFunc) *Server {
 func (s *Server) AttachHealth() *Server {
 	group := s.router.Group("/health")
 	group.GET("/", func(ctx *gin.Context) {
-		NewResponse("Healthy").OK(ctx)
+		ctx.JSON(responses.New().OK("Healthy"))
 	})
 	return s
 }
@@ -60,12 +61,12 @@ func (s *Server) AttachHealth() *Server {
 func (s *Server) Run() {
 	if s.config.AppPort == "" {
 		s.router.Run(":8080")
-		gokit.NewLogger(&gokit.LoggerConfig{
+		cntechkitgo.NewLogger(&cntechkitgo.LoggerConfig{
 			AppName: "cntechkit-gogin",
 		}).Info("Starting server on port 8080")
 	} else {
 		s.router.Run(s.config.AppPort)
-		gokit.NewLogger(&gokit.LoggerConfig{
+		cntechkitgo.NewLogger(&cntechkitgo.LoggerConfig{
 			AppName: "cntechkit-gogin",
 		}).Info("Starting server on port " + s.config.AppPort)
 	}

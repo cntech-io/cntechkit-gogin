@@ -2,8 +2,8 @@ package middlewares
 
 import (
 	cntechkitgo "github.com/cntech-io/cntechkit-go"
-	cntechkitgogin "github.com/cntech-io/cntechkit-gogin"
-	endusermessage "github.com/cntech-io/cntechkit-gogin/constants/end_user_message"
+	"github.com/cntech-io/cntechkit-gogin/errorcodes"
+	"github.com/cntech-io/cntechkit-gogin/responses"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,13 +13,10 @@ func BasicAuthMiddleware() gin.HandlerFunc {
 		if !ok || username == "" || password == "" {
 			cntechkitgo.NewLogger(&cntechkitgo.LoggerConfig{
 				AppName: "cntechkit-gogin",
-			}).Error(string(endusermessage.BasicAuthInvalidParams))
-			cntechkitgogin.
-				NewResponse(string(endusermessage.BasicAuthInvalidParams)).
-				BadRequest(context, cntechkitgogin.InvalidParams)
+			}).Error(string(errorcodes.ERRC17006.Default))
+			context.JSON(responses.New().BadRequest(errorcodes.ERRC17006))
 			context.Abort()
 		}
-
 		context.Next()
 	}
 }
