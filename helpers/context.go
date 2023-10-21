@@ -9,16 +9,16 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-func getHeader(ctx *gin.Context, key string) ([]string, error) {
-	value, exists := ctx.Request.Header[key]
+func getHeader(c *gin.Context, key string) ([]string, error) {
+	value, exists := c.Request.Header[key]
 	if !exists {
 		return nil, fmt.Errorf("%s header not found", key)
 	}
 	return value, nil
 }
 
-func GetClientIPFromContext(ctx *gin.Context) (string, error) {
-	xForwardedFor, err := getHeader(ctx, "X-Forwarded-For")
+func GetClientIPFromContext(c *gin.Context) (string, error) {
+	xForwardedFor, err := getHeader(c, "X-Forwarded-For")
 	if err != nil {
 		return "", err
 	}
@@ -32,8 +32,8 @@ func GetClientIPFromContext(ctx *gin.Context) (string, error) {
 	return clientIP, nil
 }
 
-func GetBearerTokenFromContext(ctx *gin.Context) (string, error) {
-	authorization, err := getHeader(ctx, "Authorization")
+func GetBearerTokenFromContext(c *gin.Context) (string, error) {
+	authorization, err := getHeader(c, "Authorization")
 	if err != nil {
 		return "", err
 	}
@@ -52,8 +52,8 @@ func GetBearerTokenFromContext(ctx *gin.Context) (string, error) {
 	return token, nil
 }
 
-func GetCustomHeaderValueFromContext(ctx *gin.Context, key string) (string, error) {
-	valueArr, err := getHeader(ctx, key)
+func GetCustomHeaderValueFromContext(c *gin.Context, key string) (string, error) {
+	valueArr, err := getHeader(c, key)
 	if err != nil {
 		return "", err
 	}
@@ -62,8 +62,8 @@ func GetCustomHeaderValueFromContext(ctx *gin.Context, key string) (string, erro
 	return value, nil
 }
 
-func ValidateContextBody(ctx *gin.Context, obj interface{}) (bool, error) {
-	if err := ctx.BindJSON(obj); err != nil {
+func ValidateContextBody(c *gin.Context, obj interface{}) (bool, error) {
+	if err := c.BindJSON(obj); err != nil {
 		return false, err
 	}
 

@@ -8,15 +8,15 @@ import (
 )
 
 func BasicAuthMiddleware() gin.HandlerFunc {
-	return func(context *gin.Context) {
-		username, password, ok := context.Request.BasicAuth()
+	return func(c *gin.Context) {
+		username, password, ok := c.Request.BasicAuth()
 		if !ok || username == "" || password == "" {
 			cntechkitgo.NewLogger(&cntechkitgo.LoggerConfig{
 				AppName: "cntechkit-gogin",
 			}).Error(string(errorcodes.ERRC17006.Default))
-			context.JSON(responses.New().BadRequest(errorcodes.ERRC17006))
-			context.Abort()
+			c.JSON(responses.New().BadRequest(errorcodes.ERRC17006))
+			c.Abort()
 		}
-		context.Next()
+		c.Next()
 	}
 }
