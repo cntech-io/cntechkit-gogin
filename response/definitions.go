@@ -1,37 +1,37 @@
-package responses
+package response
 
 import (
 	"net/http"
 
-	"github.com/cntech-io/cntechkit-gogin/errorcodes"
+	errormessage "github.com/cntech-io/cntechkit-gogin/error-message"
 )
 
 type response struct {
-	Status         bool                 `json:"status"`
-	EndUserMessage string               `json:"end_user_message"`
-	Err            errorcodes.ErrorCode `json:"error,omitempty"`
-	Data           any                  `json:"data,omitempty"`
+	Status         bool                      `json:"status"`
+	EndUserMessage string                    `json:"end_user_message"`
+	Err            errormessage.ErrorMessage `json:"error,omitempty"`
+	Data           any                       `json:"data,omitempty"`
 }
 
 func New() *response {
 	return &response{}
 }
 
-func (r *response) BadRequest(errcode errorcodes.ErrorCode) (int, response) {
+func (r *response) BadRequest(err errormessage.ErrorMessage) (int, response) {
 	r.Status = false
-	r.Err = errcode
+	r.Err = err
 	return http.StatusBadRequest, *r
 }
 
-func (r *response) Unauthorized(errcode errorcodes.ErrorCode) (int, response) {
+func (r *response) Unauthorized(err errormessage.ErrorMessage) (int, response) {
 	r.Status = false
-	r.Err = errcode
+	r.Err = err
 	return http.StatusUnauthorized, *r
 }
 
-func (r *response) NotFound(errcode errorcodes.ErrorCode) (int, response) {
+func (r *response) NotFound(err errormessage.ErrorMessage) (int, response) {
 	r.Status = false
-	r.Err = errcode
+	r.Err = err
 	return http.StatusNotFound, *r
 }
 

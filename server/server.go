@@ -1,10 +1,11 @@
-package cntechkitgogin
+package server
 
 import (
 	"fmt"
 
 	cntechkitgo "github.com/cntech-io/cntechkit-go"
-	"github.com/cntech-io/cntechkit-gogin/responses"
+	"github.com/cntech-io/cntechkit-gogin/controller"
+	"github.com/cntech-io/cntechkit-gogin/response"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -37,16 +38,20 @@ func NewServer(conf ServerConfig) *Server {
 	return server
 }
 
-func (s *Server) AddController(c *Controller) *Server {
-	if c.path == "" {
+func (s *Server) AddController(c *controller.Controller) *Server {
+	if c.GetPath() == "" {
 		panic("controller path missing")
 	}
-	if c.version == "" {
+	if c.GetVersion() == "" {
 		panic("controller version missing")
 	}
-	group := s.router.Group(fmt.Sprintf("%v%v", c.version, c.path))
-	for _, resource := range c.apis {
-		group.Handle(string(resource.method), resource.path, append(resource.middlewares, resource.handler)...)
+	group := s.router.Group(fmt.Sprintf("%v%v", c.GetVersion(), c.GetPath()))
+	for _, api := range c.GetApis() {
+		group.Handle(
+			string(api.GetMethod()),
+			api.GetPath(),
+			append(api.GetMiddlewares(), api.GetHandler())...,
+		)
 	}
 	return s
 }
@@ -59,7 +64,7 @@ func (s *Server) AttachMiddleWare(middleware gin.HandlerFunc) *Server {
 func (s *Server) AttachHealth() *Server {
 	group := s.router.Group("/health")
 	group.GET("/", func(c *gin.Context) {
-		c.JSON(responses.New().OK("Healthy"))
+		c.JSON(response.New().OK("Healthy"))
 	})
 	return s
 }

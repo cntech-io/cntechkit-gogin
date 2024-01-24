@@ -1,4 +1,4 @@
-package helpers
+package utility
 
 import (
 	"errors"
@@ -10,11 +10,11 @@ import (
 )
 
 func getHeader(c *gin.Context, key string) ([]string, error) {
-	value, exists := c.Request.Header[key]
-	if !exists {
-		return nil, fmt.Errorf("%s header not found", key)
-	}
-	return value, nil
+    value := c.Request.Header[key]
+    if len(value) == 0 {
+        return nil, fmt.Errorf("%s header not found", key)
+    }
+    return value, nil
 }
 
 func GetClientIPFromContext(c *gin.Context) (string, error) {
@@ -23,33 +23,27 @@ func GetClientIPFromContext(c *gin.Context) (string, error) {
 		return "", err
 	}
 
-	ips := strings.Split(xForwardedFor[0], ",")
-	if len(ips) == 0 {
+	IPs := strings.Split(xForwardedFor[0], ",")
+	if len(IPs) == 0 {
 		return "", errors.New("X-Forwarded-For values not found")
 	}
 
-	clientIP := strings.TrimSpace(ips[0])
+	clientIP := strings.TrimSpace(IPs[0])
 	return clientIP, nil
 }
 
 func GetBearerTokenFromContext(c *gin.Context) (string, error) {
-	authorization, err := getHeader(c, "Authorization")
+	authHeader, err := getHeader(c, "Authorization")
 	if err != nil {
 		return "", err
 	}
 
-	authValue := authorization[0]
-
-	authValueArr := strings.Split(authValue, " ")
-	if len(authValueArr) != 2 {
-		return "", fmt.Errorf("invalid authorization value")
-	}
-	if authValueArr[0] != "Bearer" {
-		return "", fmt.Errorf("invalid bearer authorization value")
+	bearerToken := strings.Fields(authHeader[0])
+	if len(bearerToken) != 2 || bearerToken[0] != "Bearer" {
+		return "", fmt.Errorf("invalid bearer token")
 	}
 
-	token := authValueArr[1]
-	return token, nil
+	return bearerToken[1], nil
 }
 
 func GetCustomHeaderValueFromContext(c *gin.Context, key string) (string, error) {
@@ -57,9 +51,7 @@ func GetCustomHeaderValueFromContext(c *gin.Context, key string) (string, error)
 	if err != nil {
 		return "", err
 	}
-	value := valueArr[0]
-
-	return value, nil
+	return valueArr[0], nil
 }
 
 func ValidateContextBody(c *gin.Context, obj interface{}) (bool, error) {
@@ -67,9 +59,7 @@ func ValidateContextBody(c *gin.Context, obj interface{}) (bool, error) {
 		return false, err
 	}
 
-	validator := validator.New()
-	err := validator.Struct(obj)
-	if err != nil {
+	if err := validator.New().Struct(obj); err != nil {
 		return false, err
 	}
 
@@ -81,8 +71,7 @@ func ValidateContextForm(c *gin.Context, obj interface{}) (bool, error) {
 		return false, err
 	}
 
-	validator := validator.New()
-	if err := validator.Struct(obj); err != nil {
+	if err := validator.New().Struct(obj); err != nil {
 		return false, err
 	}
 
@@ -94,8 +83,7 @@ func ValidateContextQuery(c *gin.Context, obj interface{}) (bool, error) {
 		return false, err
 	}
 
-	validator := validator.New()
-	if err := validator.Struct(obj); err != nil {
+	if err := validator.New().Struct(obj); err != nil {
 		return false, err
 	}
 
