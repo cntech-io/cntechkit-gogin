@@ -3,7 +3,8 @@ package server
 import (
 	"fmt"
 
-	cntechkitgo "github.com/cntech-io/cntechkit-go"
+	e "github.com/cntech-io/cntechkit-go/v2/env"
+	"github.com/cntech-io/cntechkit-go/v2/logger"
 	"github.com/cntech-io/cntechkit-gogin/v2/controller"
 	"github.com/cntech-io/cntechkit-gogin/v2/response"
 	"github.com/gin-contrib/cors"
@@ -20,7 +21,7 @@ type Server struct {
 	router *gin.Engine
 }
 
-var env = cntechkitgo.NewServerEnv()
+var env = e.NewServerEnv()
 
 func NewServer(conf ServerConfig) *Server {
 	server := &Server{}
@@ -77,9 +78,9 @@ func (s *Server) Run() {
 
 	s.router.Run(PORT)
 
-	cntechkitgo.
+	logger.
 		NewLogger(
-			&cntechkitgo.LoggerConfig{
+			&logger.LoggerConfig{
 				AppName: "cntechkit-gogin",
 			},
 		).

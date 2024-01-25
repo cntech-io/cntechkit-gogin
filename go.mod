@@ -3,7 +3,7 @@ module github.com/cntech-io/cntechkit-gogin/v2
 go 1.20
 
 require (
-	github.com/cntech-io/cntechkit-go v1.0.8
+	github.com/cntech-io/cntechkit-go/v2 v2.0.2
 	github.com/gin-contrib/cors v1.5.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/validator/v10 v10.17.0

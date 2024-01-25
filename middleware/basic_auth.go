@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	cntechkitgo "github.com/cntech-io/cntechkit-go"
+	"github.com/cntech-io/cntechkit-go/v2/logger"
 	errormessage "github.com/cntech-io/cntechkit-gogin/v2/error-message"
 	"github.com/cntech-io/cntechkit-gogin/v2/response"
 	"github.com/gin-gonic/gin"
@@ -11,9 +11,9 @@ func BasicAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		username, password, ok := c.Request.BasicAuth()
 		if !ok || username == "" || password == "" {
-			cntechkitgo.
+			logger.
 				NewLogger(
-					&cntechkitgo.LoggerConfig{
+					&logger.LoggerConfig{
 						AppName: "cntechkit-gogin",
 					},
 				).
