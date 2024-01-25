@@ -1,3 +1,11 @@
+### install
+
+``` bash
+go get github.com/cntech-io/cntechkit-gogin/v2
+```
+
+
+
 ### Server
 
 | Method                                                                | Description                    |
