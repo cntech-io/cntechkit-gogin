@@ -10,19 +10,29 @@
 | &nbsp;&nbsp;&nbsp;&nbsp;.Router()                                     | returns router ( \*gin.Engine) |
 
 ### Controller
-| Method                                                              | Description                                          |
-| ------------------------------------------------------------------- | ---------------------------------------------------- |
-| controller.NewController(version string, path string)               | Creates controller                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;.AttachAPI(a \*api)                         | Attachs Api to controller                            |
+
+| Method                                                | Description               |
+| ----------------------------------------------------- | ------------------------- |
+| controller.NewController(version string, path string) | Creates controller        |
+| &nbsp;&nbsp;&nbsp;&nbsp;.AttachAPI(a \*api)           | Attachs Api to controller |
 
 ### Api
-| Method                                                              | Description                                          |
-| ------------------------------------------------------------------- | ---------------------------------------------------- |
-| api.NewAPI(method RouteMethod, path string)                         | Creates Api                                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Handler(h gin.HandlerFunc)                 | Adds handler to Api                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;.AddMiddleware(m gin.HandlerFunc)           | Adds middleware to Api                               |
+
+| Method                                                    | Description            |
+| --------------------------------------------------------- | ---------------------- |
+| api.NewAPI(method RouteMethod, path string)               | Creates Api            |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Handler(h gin.HandlerFunc)       | Adds handler to Api    |
+| &nbsp;&nbsp;&nbsp;&nbsp;.AddMiddleware(m gin.HandlerFunc) | Adds middleware to Api |
+
+### Middleware
+
+| Method                           | Description |
+| -------------------------------- | ----------- |
+| middleware.BasicAuthMiddleware() |             |
+| middleware.CORSMiddleware        |             |
 
 ### Response
+
 | Method                                                              | Description                                          |
 | ------------------------------------------------------------------- | ---------------------------------------------------- |
 | response.New()                                                      | Creates Response                                     |
