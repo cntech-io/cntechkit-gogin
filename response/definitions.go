@@ -3,7 +3,7 @@ package response
 import (
 	"net/http"
 
-	errormessage "github.com/cntech-io/cntechkit-gogin/error-message"
+	errormessage "github.com/cntech-io/cntechkit-gogin/v2/error-message"
 )
 
 type response struct {

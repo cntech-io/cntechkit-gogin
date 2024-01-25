@@ -10,11 +10,11 @@ import (
 )
 
 func getHeader(c *gin.Context, key string) ([]string, error) {
-    value := c.Request.Header[key]
-    if len(value) == 0 {
-        return nil, fmt.Errorf("%s header not found", key)
-    }
-    return value, nil
+	value := c.Request.Header[key]
+	if len(value) == 0 {
+		return nil, fmt.Errorf("%s header not found", key)
+	}
+	return value, nil
 }
 
 func GetClientIPFromContext(c *gin.Context) (string, error) {

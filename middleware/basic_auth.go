@@ -2,8 +2,8 @@ package middleware
 
 import (
 	cntechkitgo "github.com/cntech-io/cntechkit-go"
-	errormessage "github.com/cntech-io/cntechkit-gogin/error-message"
-	"github.com/cntech-io/cntechkit-gogin/response"
+	errormessage "github.com/cntech-io/cntechkit-gogin/v2/error-message"
+	"github.com/cntech-io/cntechkit-gogin/v2/response"
 	"github.com/gin-gonic/gin"
 )
 

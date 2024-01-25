@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	cntechkitgo "github.com/cntech-io/cntechkit-go"
-	"github.com/cntech-io/cntechkit-gogin/controller"
-	"github.com/cntech-io/cntechkit-gogin/response"
+	"github.com/cntech-io/cntechkit-gogin/v2/controller"
+	"github.com/cntech-io/cntechkit-gogin/v2/response"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )

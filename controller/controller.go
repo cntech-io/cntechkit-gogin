@@ -1,6 +1,6 @@
 package controller
 
-import "github.com/cntech-io/cntechkit-gogin/api"
+import "github.com/cntech-io/cntechkit-gogin/v2/api"
 
 type Controller struct {
 	version string
