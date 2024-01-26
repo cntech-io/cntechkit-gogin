@@ -12,7 +12,6 @@ import (
 )
 
 type ServerConfig struct {
-	AppPort    string
 	CorsConfig *cors.Config
 }
 
@@ -72,8 +71,8 @@ func (s *Server) AttachHealth() *Server {
 
 func (s *Server) Run() {
 	var PORT = ":8080"
-	if s.config.AppPort != "" {
-		PORT = s.config.AppPort
+	if env.AppPort != "" {
+		PORT = env.AppPort
 	}
 
 	s.router.Run(PORT)
