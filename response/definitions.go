@@ -23,6 +23,12 @@ func (r *response) BadRequest(err errormessage.ErrorMessage) (int, response) {
 	return http.StatusBadRequest, *r
 }
 
+func (r *response) Forbitten(err errormessage.ErrorMessage) (int, response) {
+	r.status = false
+	r.err = err
+	return http.StatusForbidden, *r
+}
+
 func (r *response) Unauthorized(err errormessage.ErrorMessage) (int, response) {
 	r.status = false
 	r.err = err
