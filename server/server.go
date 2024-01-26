@@ -7,24 +7,18 @@ import (
 	"github.com/cntech-io/cntechkit-go/v2/logger"
 	"github.com/cntech-io/cntechkit-gogin/v2/controller"
 	"github.com/cntech-io/cntechkit-gogin/v2/response"
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
-type ServerConfig struct {
-	CorsConfig *cors.Config
-}
-
 type Server struct {
-	config *ServerConfig
 	router *gin.Engine
 }
 
 var env = e.NewServerEnv()
 
-func NewServer(conf ServerConfig) *Server {
+func NewServer() *Server {
 	server := &Server{}
-	server.config = &conf
+
 	if env.DebugModeFlag {
 		gin.SetMode(gin.DebugMode)
 	} else {
@@ -75,7 +69,16 @@ func (s *Server) Run() {
 		PORT = env.AppPort
 	}
 
-	s.router.Run(PORT)
+	err := s.router.Run(PORT)
+	if err != nil {
+		logger.
+			NewLogger(
+				&logger.LoggerConfig{
+					AppName: "cntechkit-gogin",
+				},
+			).
+			Error(err.Error())
+	}
 
 	logger.
 		NewLogger(
