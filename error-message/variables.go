@@ -56,6 +56,14 @@ var ERR_INVALID_BASIC_AUTH_HEADER_FORMAT ErrorMessage = ErrorMessage{
 	},
 }
 
+var ERR_INVALID_CUSTOM_HEADER ErrorMessage = ErrorMessage{
+	Code:    "ERR_INVALID_CUSTOM_HEADER",
+	Default: "Invalid custom header",
+	Language: Language{
+		TR: "Geçersiz header parametresi",
+	},
+}
+
 var ERR_INVALID_PASSWORD ErrorMessage = ErrorMessage{
 	Code:    "ERR_INVALID_PASSWORD",
 	Default: "Invalid password",
@@ -63,3 +71,4 @@ var ERR_INVALID_PASSWORD ErrorMessage = ErrorMessage{
 		TR: "Geçersiz şifre",
 	},
 }
+

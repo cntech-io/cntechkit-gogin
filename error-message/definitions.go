@@ -32,3 +32,10 @@ func (eml *ErrorMessageList) ToJson() string {
 	}
 	return string(errorBytes)
 }
+
+func NewErrorMessage(code string, message string) ErrorMessage {
+	return ErrorMessage{
+		Code:    code,
+		Default: message,
+	}
+}
