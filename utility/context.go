@@ -54,6 +54,15 @@ func GetCustomHeaderValueFromContext(c *gin.Context, key string) (string, error)
 	return valueArr[0], nil
 }
 
+func GetValueSentByMiddleware(ctx *gin.Context, key string) (string, error) {
+	value, ok := ctx.Get(key)
+	if !ok {
+		return "", fmt.Errorf("%v not found in predefined values", key)
+	}
+	valueStr, _ := value.(string)
+	return valueStr, nil
+}
+
 func ValidateContextBody(c *gin.Context, obj interface{}) (bool, error) {
 	if err := c.BindJSON(obj); err != nil {
 		return false, err
