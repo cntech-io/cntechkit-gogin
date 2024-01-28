@@ -7,10 +7,10 @@ import (
 )
 
 type response struct {
-	status         bool
-	endUserMessage string
-	err            errormessage.ErrorMessage
-	data           any
+	Status         bool                      `json:"status"`
+	EndUserMessage string                    `json:"endUserMessage"`
+	Err            errormessage.ErrorMessage `json:"error"`
+	Data           any                       `json:"data"`
 }
 
 func New() *response {
@@ -18,49 +18,49 @@ func New() *response {
 }
 
 func (r *response) BadRequest(err errormessage.ErrorMessage) (int, response) {
-	r.status = false
-	r.err = err
+	r.Status = false
+	r.Err = err
 	return http.StatusBadRequest, *r
 }
 
 func (r *response) Forbitten(err errormessage.ErrorMessage) (int, response) {
-	r.status = false
-	r.err = err
+	r.Status = false
+	r.Err = err
 	return http.StatusForbidden, *r
 }
 
 func (r *response) Unauthorized(err errormessage.ErrorMessage) (int, response) {
-	r.status = false
-	r.err = err
+	r.Status = false
+	r.Err = err
 	return http.StatusUnauthorized, *r
 }
 
 func (r *response) NotFound(err errormessage.ErrorMessage) (int, response) {
-	r.status = false
-	r.err = err
+	r.Status = false
+	r.Err = err
 	return http.StatusNotFound, *r
 }
 
 func (r *response) NoContent(message string) (int, response) {
-	r.status = true
-	r.endUserMessage = message
+	r.Status = true
+	r.EndUserMessage = message
 	return http.StatusNoContent, *r
 }
 
 func (r *response) Created(message string) (int, response) {
-	r.status = true
-	r.endUserMessage = message
+	r.Status = true
+	r.EndUserMessage = message
 	return http.StatusCreated, *r
 }
 
 func (r *response) OK(message string) (int, response) {
-	r.status = true
-	r.endUserMessage = message
+	r.Status = true
+	r.EndUserMessage = message
 	return http.StatusOK, *r
 }
 
-func (r *response) Data(message string, data any) (int, response) {
-	r.status = true
-	r.data = data
+func (r *response) WithData(message string, data any) (int, response) {
+	r.Status = true
+	r.Data = data
 	return http.StatusOK, *r
 }
