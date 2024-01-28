@@ -79,3 +79,11 @@ var ERR_USER_NOT_FOUND ErrorMessage = ErrorMessage{
 		TR: "Kullanıcı bulunamadı",
 	},
 }
+
+var ERR_USER_NOT_VERIFIED ErrorMessage = ErrorMessage{
+	Code:    "ERR_USER_NOT_VERIFIED",
+	Default: "User not verified",
+	Language: Language{
+		TR: "Kullanıcı onay bekleniyor",
+	},
+}
