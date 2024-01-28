@@ -72,3 +72,10 @@ var ERR_INVALID_PASSWORD ErrorMessage = ErrorMessage{
 	},
 }
 
+var ERR_USER_NOT_FOUND ErrorMessage = ErrorMessage{
+	Code:    "ERR_USER_NOT_FOUND",
+	Default: "User not found",
+	Language: Language{
+		TR: "Kullanıcı bulunamadı",
+	},
+}
