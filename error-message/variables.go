@@ -72,6 +72,22 @@ var ERR_INVALID_PASSWORD ErrorMessage = ErrorMessage{
 	},
 }
 
+var ERR_INVALID_EMAIL ErrorMessage = ErrorMessage{
+	Code:    "ERR_INVALID_EMAIL",
+	Default: "Invalid e-mail address",
+	Language: Language{
+		TR: "Geçersiz e-posta adresi",
+	},
+}
+
+var ERR_INVALID_CHARACTERS ErrorMessage = ErrorMessage{
+	Code:    "ERR_INVALID_CHARACTERS",
+	Default: "Invalid characters",
+	Language: Language{
+		TR: "Geçersiz karakterler",
+	},
+}
+
 var ERR_USER_NOT_FOUND ErrorMessage = ErrorMessage{
 	Code:    "ERR_USER_NOT_FOUND",
 	Default: "User not found",
@@ -85,5 +101,21 @@ var ERR_USER_NOT_VERIFIED ErrorMessage = ErrorMessage{
 	Default: "User not verified",
 	Language: Language{
 		TR: "Kullanıcı onay bekleniyor",
+	},
+}
+
+var ERR_USER_NOT_AUTHENTICATED ErrorMessage = ErrorMessage{
+	Code:    "ERR_USER_NOT_AUTHENTICATED",
+	Default: "User not authenticated",
+	Language: Language{
+		TR: "Kullanıcı kimliği doğrulanamadı",
+	},
+}
+
+var ERR_MISSING_FIELDS = ErrorMessage{
+	Code:    "ERR_MISSING_FIELDS",
+	Default: "Missing fields",
+	Language: Language{
+		TR: "Gerekli alanlar eksik",
 	},
 }

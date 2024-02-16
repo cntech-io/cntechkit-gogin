@@ -9,8 +9,8 @@ import (
 type response struct {
 	Status         bool                      `json:"status"`
 	EndUserMessage string                    `json:"endUserMessage"`
-	Err            errormessage.ErrorMessage `json:"error"`
-	Data           any                       `json:"data"`
+	Err            errormessage.ErrorMessage `json:"error,omitempty"`
+	Data           any                       `json:"data,omitempty"`
 }
 
 func New() *response {
