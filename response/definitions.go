@@ -7,10 +7,10 @@ import (
 )
 
 type response struct {
-	Status         bool                      `json:"status"`
-	EndUserMessage string                    `json:"endUserMessage"`
-	Err            errormessage.ErrorMessage `json:"error,omitempty"`
-	Data           any                       `json:"data,omitempty"`
+	Status         bool                       `json:"status"`
+	EndUserMessage string                     `json:"endUserMessage"`
+	Err            *errormessage.ErrorMessage `json:"error,omitempty"`
+	Data           any                        `json:"data,omitempty"`
 }
 
 func New() *response {
@@ -19,25 +19,25 @@ func New() *response {
 
 func (r *response) BadRequest(err errormessage.ErrorMessage) (int, response) {
 	r.Status = false
-	r.Err = err
+	r.Err = &err
 	return http.StatusBadRequest, *r
 }
 
 func (r *response) Forbitten(err errormessage.ErrorMessage) (int, response) {
 	r.Status = false
-	r.Err = err
+	r.Err = &err
 	return http.StatusForbidden, *r
 }
 
 func (r *response) Unauthorized(err errormessage.ErrorMessage) (int, response) {
 	r.Status = false
-	r.Err = err
+	r.Err = &err
 	return http.StatusUnauthorized, *r
 }
 
 func (r *response) NotFound(err errormessage.ErrorMessage) (int, response) {
 	r.Status = false
-	r.Err = err
+	r.Err = &err
 	return http.StatusNotFound, *r
 }
 
