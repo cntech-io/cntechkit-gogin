@@ -61,6 +61,7 @@ func (r *response) OK(message string) (int, response) {
 
 func (r *response) WithData(message string, data any) (int, response) {
 	r.Status = true
+	r.EndUserMessage = message
 	r.Data = data
 	return http.StatusOK, *r
 }
