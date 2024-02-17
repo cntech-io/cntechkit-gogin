@@ -88,6 +88,14 @@ var ERR_INVALID_CHARACTERS ErrorMessage = ErrorMessage{
 	},
 }
 
+var ERR_INVALID_DATA_TYPE ErrorMessage = ErrorMessage{
+	Code:    "ERR_INVALID_DATA_TYPE",
+	Default: "Invalid data type",
+	Language: Language{
+		TR: "Geçersiz veri tipi",
+	},
+}
+
 var ERR_USER_NOT_FOUND ErrorMessage = ErrorMessage{
 	Code:    "ERR_USER_NOT_FOUND",
 	Default: "User not found",
