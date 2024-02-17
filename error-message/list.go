@@ -17,4 +17,5 @@ var List ErrorMessageList = ErrorMessageList{
 	ERR_USER_NOT_VERIFIED.Code:                 ERR_USER_NOT_VERIFIED,
 	ERR_USER_NOT_AUTHENTICATED.Code:            ERR_USER_NOT_AUTHENTICATED,
 	ERR_MISSING_FIELDS.Code:                    ERR_MISSING_FIELDS,
+	ERR_RATE_LIMIT.Code:                        ERR_RATE_LIMIT,
 }

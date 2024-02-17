@@ -127,3 +127,11 @@ var ERR_MISSING_FIELDS = ErrorMessage{
 		TR: "Gerekli alanlar eksik",
 	},
 }
+
+var ERR_RATE_LIMIT = ErrorMessage{
+	Code:    "ERR_RATE_LIMIT",
+	Default: "Rate limit exceeded",
+	Language: Language{
+		TR: "İstek sayısı limitine ulaşıldı",
+	},
+}
