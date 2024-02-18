@@ -69,7 +69,7 @@ func (cfg *jwtConfig) authenticate(token string) (jwt.Claims, error) {
 	return claims, nil
 }
 
-func (cfg *jwtConfig) AuthenticateMiddleware(userIdKey string) gin.HandlerFunc {
+func (cfg *jwtConfig) AuthenticateMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token, err := utility.GetBearerTokenFromContext(c)
 		if err != nil {
