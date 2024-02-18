@@ -6,6 +6,7 @@ import (
 	e "github.com/cntech-io/cntechkit-go/v2/env"
 	gogin "github.com/cntech-io/cntechkit-gogin/v2"
 	"github.com/cntech-io/cntechkit-gogin/v2/controller"
+	errormessage "github.com/cntech-io/cntechkit-gogin/v2/error-message"
 	"github.com/cntech-io/cntechkit-gogin/v2/response"
 	"github.com/gin-gonic/gin"
 )
@@ -59,6 +60,14 @@ func (s *Server) AttachHealth() *Server {
 	group := s.router.Group("/health")
 	group.GET("/", func(c *gin.Context) {
 		c.JSON(response.New().OK("Healthy"))
+	})
+	return s
+}
+
+func (s *Server) AttachErrorDefinitions() *Server {
+	group := s.router.Group("/error-definitions")
+	group.GET("/", func(c *gin.Context) {
+		c.JSON(response.New().WithData("success", errormessage.List))
 	})
 	return s
 }

@@ -1,6 +1,10 @@
 package controller
 
-import "github.com/cntech-io/cntechkit-gogin/v2/api"
+import (
+	"strings"
+
+	"github.com/cntech-io/cntechkit-gogin/v2/api"
+)
 
 type Controller struct {
 	version string
@@ -9,9 +13,22 @@ type Controller struct {
 }
 
 func NewController(version string, path string) *Controller {
+	var _version string
+	var _path string
+	if !strings.HasPrefix(version, "/") {
+		_version = "/" + version
+	} else {
+		_version = version
+	}
+
+	if !strings.HasSuffix(path, "/") {
+		_path = path + "/"
+	} else {
+		_path = path
+	}
 	return &Controller{
-		version: version,
-		path:    path,
+		version: _version,
+		path:    _path,
 	}
 }
 

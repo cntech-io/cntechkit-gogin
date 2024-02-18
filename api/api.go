@@ -1,6 +1,10 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"strings"
+
+	"github.com/gin-gonic/gin"
+)
 
 type RouteMethod string
 
@@ -20,8 +24,14 @@ type Api struct {
 }
 
 func NewAPI(method RouteMethod, path string) *Api {
+	var _path string
+	if strings.HasPrefix(path, "/") {
+		_path = strings.Split(path, "/")[1]
+	} else {
+		_path = path
+	}
 	return &Api{
-		path:   path,
+		path:   _path,
 		method: method,
 	}
 }
