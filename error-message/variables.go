@@ -96,6 +96,22 @@ var ERR_INVALID_DATA_TYPE ErrorMessage = ErrorMessage{
 	},
 }
 
+var ERR_USER_EXISTS ErrorMessage = ErrorMessage{
+	Code:    "ERR_USER_EXISTS",
+	Default: "User already exists",
+	Language: Language{
+		TR: "Kullanıcı zaten var",
+	},
+}
+
+var ERR_USERNAME_EXISTS ErrorMessage = ErrorMessage{
+	Code:    "ERR_USERNAME_EXISTS",
+	Default: "Username already exists",
+	Language: Language{
+		TR: "Kullanıcı adı zaten var",
+	},
+}
+
 var ERR_USER_NOT_FOUND ErrorMessage = ErrorMessage{
 	Code:    "ERR_USER_NOT_FOUND",
 	Default: "User not found",
@@ -128,10 +144,18 @@ var ERR_MISSING_FIELDS = ErrorMessage{
 	},
 }
 
-var ERR_RATE_LIMIT = ErrorMessage{
-	Code:    "ERR_RATE_LIMIT",
-	Default: "Rate limit exceeded",
+var ERR_TOO_MANY_REQUEST = ErrorMessage{
+	Code:    "ERR_TOO_MANY_REQUEST",
+	Default: "Too many requests",
 	Language: Language{
 		TR: "İstek sayısı limitine ulaşıldı",
+	},
+}
+
+var ERR_UNKNOWN = ErrorMessage{
+	Code:    "ERR_UNKNOWN",
+	Default: "Unknown error",
+	Language: Language{
+		TR: "Bilinmeyen hata",
 	},
 }
