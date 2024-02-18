@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	e "github.com/cntech-io/cntechkit-go/v2/env"
-	"github.com/cntech-io/cntechkit-go/v2/logger"
+	gogin "github.com/cntech-io/cntechkit-gogin/v2"
 	"github.com/cntech-io/cntechkit-gogin/v2/controller"
 	"github.com/cntech-io/cntechkit-gogin/v2/response"
 	"github.com/gin-gonic/gin"
@@ -34,10 +34,10 @@ func NewServer() *Server {
 
 func (s *Server) AddController(c *controller.Controller) *Server {
 	if c.GetPath() == "" {
-		panic("controller path missing")
+		panic("Controller path missing")
 	}
 	if c.GetVersion() == "" {
-		panic("controller version missing")
+		panic("Controller version missing")
 	}
 	group := s.router.Group(fmt.Sprintf("%v%v", c.GetVersion(), c.GetPath()))
 	for _, api := range c.GetApis() {
@@ -71,22 +71,10 @@ func (s *Server) Run() {
 
 	err := s.router.Run(PORT)
 	if err != nil {
-		logger.
-			NewLogger(
-				&logger.LoggerConfig{
-					AppName: "cntechkit-gogin",
-				},
-			).
-			Error(err.Error())
+		panic(fmt.Sprintf("Error starting server: %v", err))
 	}
 
-	logger.
-		NewLogger(
-			&logger.LoggerConfig{
-				AppName: "cntechkit-gogin",
-			},
-		).
-		Info(fmt.Sprintf("Starting server on port: %v", PORT))
+	gogin.LOGGER.Info(fmt.Sprintf("Starting server on port: %v", PORT))
 }
 
 func (s *Server) Router() *gin.Engine {

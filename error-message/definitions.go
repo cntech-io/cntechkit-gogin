@@ -2,7 +2,8 @@ package errormessage
 
 import (
 	"encoding/json"
-	"fmt"
+
+	gogin "github.com/cntech-io/cntechkit-gogin/v2"
 )
 
 type Language struct {
@@ -17,18 +18,10 @@ type ErrorMessage struct {
 
 type ErrorMessageList map[string]interface{}
 
-func (em *ErrorMessage) ToJson() string {
-	errorBytes, err := json.Marshal(em)
-	if err != nil {
-		fmt.Println("ErrorCode to Json conversion error!")
-	}
-	return string(errorBytes)
-}
-
 func (eml *ErrorMessageList) ToJson() string {
 	errorBytes, err := json.Marshal(eml)
 	if err != nil {
-		fmt.Println("ErrorCodeList to Json conversion error!")
+		gogin.LOGGER.Warn("ErrorCodeList to Json conversion error!")
 	}
 	return string(errorBytes)
 }

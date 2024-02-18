@@ -6,5 +6,8 @@ import (
 )
 
 func CORSMiddleware(config *cors.Config) gin.HandlerFunc {
+	if config == nil {
+		return cors.New(cors.DefaultConfig())
+	}
 	return cors.New(*config)
 }

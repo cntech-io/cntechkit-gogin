@@ -41,6 +41,12 @@ func (r *response) NotFound(err errormessage.ErrorMessage) (int, response) {
 	return http.StatusNotFound, *r
 }
 
+func (r *response) TooManyRequests(err errormessage.ErrorMessage) (int, response) {
+	r.Status = false
+	r.Err = &err
+	return http.StatusTooManyRequests, *r
+}
+
 func (r *response) NoContent(message string) (int, response) {
 	r.Status = true
 	r.EndUserMessage = message
