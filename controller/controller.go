@@ -21,7 +21,7 @@ func NewController(version string, path string) *Controller {
 		_version = version
 	}
 
-	if !strings.HasSuffix(path, "/") {
+	if !strings.HasPrefix(path, "/") {
 		_path = path + "/"
 	} else {
 		_path = path
